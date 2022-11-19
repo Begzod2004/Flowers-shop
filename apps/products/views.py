@@ -10,7 +10,6 @@ from django.db.models import Avg
 
 from .models import Product, Image, Color, Flower, ProductReview
 
-from .forms import ProductForm, ProductReviewForm
 
 
 def filter_product(request):

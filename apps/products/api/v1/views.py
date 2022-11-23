@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404, render
+
 import json
+from rest_framework import viewsets
 from apps.products.models import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -10,6 +12,15 @@ from rest_framework import generics
 from django_filters import rest_framework as filters
 # Create your views here.
 
+    # def get_queryset(self):
+    #     products = Product.objects.filter(draft=False).annotate(
+    #         middle_star=models.Sum(models.F('ratings__rating_score')) / models.Count(models.F('ratings'))
+    #     )
+    #     return products
+
+    # def get_serializer_class(self):
+    #     if self.action == 'list':
+    #         return CreateRatingSerializer
 
 @api_view(['GET'])
 def Product_api_view(request, pk=0):
@@ -20,12 +31,15 @@ def Product_api_view(request, pk=0):
             the_Product = get_object_or_404(Product, pk=pk)
             return Response(data=ProductSerializer(instance=the_Product).data, status=200)
    
-
-class ProductListAPIView(generics, ListAPIView):
+    
+class ProductListAPIView(ListAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = ProductReviewaSerializer
+    # serializer_class = ProductSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('category', 'in_stock')
+    min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
+    max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
+
 
 class ProductCreateAPIView(CreateAPIView):
     queryset = Product.objects.all()
@@ -111,8 +125,6 @@ class ProductReviewListAPIView(ListAPIView):
     serializer_class = ProductReviewSerializer
 
 
-
 class ProductReviewCreateAPIView(CreateAPIView):
     queryset = ProductReview.objects.all()
-    serializer_class = ProductReviewSerializer
-    parser_classes = (FormParser, MultiPartParser)
+    parser_classes = (FormParser, MultiPartParser)    

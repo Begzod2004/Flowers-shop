@@ -1,11 +1,23 @@
 from django.urls import path
+from rest_framework import routers
 from .views import *
+from apps.products.api.v1.viewset import *
+from . import views
+
+ # Filters
+    
+
+router = routers.DefaultRouter()
+router.register(r'Product', ProductViewSet, basename='Product')  
+
+urlpatterns = router.urls
 
 
-urlpatterns = [
+urlpatterns +=  [
     # products
+    path('ProductFilter/', ProductFilter),
     path('product_api_view/', ProductListAPIView.as_view()),
-    path('product_api_view/create', ProductCreateAPIView.as_view()),
+    path('prproduct_api_viewoduct_api_view/create', ProductCreateAPIView.as_view()),
     path('product_api_view/<int:pk>/', Product_api_view),
 
     # Images
@@ -27,4 +39,7 @@ urlpatterns = [
     path('productReview_api_view/', ProductReviewListAPIView.as_view()),
     path('productReview_api_view/create', ProductReviewCreateAPIView.as_view()),
     path('productReview_api_view/<int:pk>/', ProductReview_api_view),
-    ]
+    # path("createStar/", views.ProductViewSet.as_view({'get': 'list'})),
+]
+   
+    

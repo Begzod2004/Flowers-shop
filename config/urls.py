@@ -29,9 +29,9 @@ from rest_framework_simplejwt.views import (
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Delivery Trans API",
+        title="Flowers shop",
         default_version='v1',
-        description="Delivery Trans official site description",
+        description="Flowers shop official site description",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
@@ -52,16 +52,15 @@ urlpatterns = [
 
 urlpatterns += [
     # admin
-    path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls),
 
     # local urls
     path('account/', include('apps.account.api.urls')),
-    path('rate/', include('apps.rate.api.urls')),
+    # path('rate/', include('apps.rate.api.urls')),
     path('products/', include('apps.products.api.urls')),
     path('blog/', include('apps.blog.api.urls')),
     path('contact/', include('apps.contact.api.urls')),
-    path('order/', include('apps.order.api.urls')),
+    # path('order/', include('apps.order.api.urls')),
 ]
 
 if settings.DEBUG:

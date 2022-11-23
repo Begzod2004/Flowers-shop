@@ -6,7 +6,7 @@ from django.utils.encoding import smart_bytes, smart_str, DjangoUnicodeDecodeErr
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from drf_yasg import openapi
 from rest_framework import generics, status, views
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -14,7 +14,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from apps.account.api.v1.permissions import IsOwnUserOrReadOnly
 # from apps.account.api.v1.permissions import IsOwnUserOrReadOnly
 from apps.account.api.v1.serializers import RegisterSerializer, LoginSerializer, AccountUpdateSerializer, \
-    AccountOwnImageUpdateSerializer, SetNewPasswordSerializer, EmailVerificationSerializer, ResetPasswordSerializer
+    AccountOwnImageUpdateSerializer, SetNewPasswordSerializer, EmailVerificationSerializer, ResetPasswordSerializer, \
+    ChangeNewPasswordSerializer
 from apps.account.api.v1.utils import Util
 from apps.account.models import Account
 
@@ -151,7 +152,7 @@ class ResetPasswordAPIView(generics.GenericAPIView):
             uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
             token = PasswordResetTokenGenerator().make_token(user)
             current_site = 'localhost:8000/'
-            abs_url = f'http://{current_site}account/v1/set-password-confirm/?uidb64={uidb64}&token={token}'
+            abs_url = f'http://{current_site}account/v1/set-password-confirm/{uidb64}/{token}/'
             email_body = f'Hello, \n User link below to activate your email \n {abs_url}'
             data = {
                 'to_email': user.email,
@@ -169,7 +170,7 @@ class AccountView(generics.RetrieveAPIView):
     permission_classes = (IsOwnUserOrReadOnly, IsAuthenticated,)
     serializer_class = AccountUpdateSerializer
 
-    def get(self, request, *args, **kwargs):
+    def queryset(self, request, *args, **kwargs):
         user = request.user
         query = Account.objects.get(id=user.id)
         serializer = self.get_serializer(query)
@@ -223,3 +224,16 @@ class AccountListView(generics.ListAPIView):
             count = queryset.count()
             return Response({'success': True, 'count': count, 'data': serializer.data}, status=status.HTTP_200_OK)
         return Response({'success': False, 'data': 'queryset does not match'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class ChangePasswordCompletedView(generics.UpdateAPIView):
+    # http://127.0.0.1:8000/account/change-password/
+    queryset = Account.objects.all()
+    serializer_class = ChangeNewPasswordSerializer
+    permission_classes = (IsAuthenticated,)
+    lookup_field = 'pk'
+
+    def patch(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        return Response({'success': True, 'message': 'Successfully set new password'}, status=status.HTTP_200_OK)

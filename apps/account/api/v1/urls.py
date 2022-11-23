@@ -1,7 +1,7 @@
 from django.urls import path, include
 from apps.account.api.v1.views import AccountView, AccountRegisterView, LoginView, SetNewPasswordView, \
     SetPasswordConfirmAPIView, ResetPasswordAPIView, AccountListView, AccountRetrieveUpdateView, \
-    AccountOwnImageUpdateView, EmailVerificationAPIView
+    AccountOwnImageUpdateView, EmailVerificationAPIView, ChangePasswordCompletedView
 
 urlpatterns = [
     path('register/', AccountRegisterView.as_view()),
@@ -13,4 +13,7 @@ urlpatterns = [
     path('own/<int:pk>/', AccountView.as_view()),
     path('profile/<int:pk>/', AccountRetrieveUpdateView.as_view()),
     path('profiles/', AccountListView.as_view()),
+
+    # change-password
+    path('change-password/<int:pk>/', ChangePasswordCompletedView.as_view())
 ]

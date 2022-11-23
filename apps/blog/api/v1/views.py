@@ -85,5 +85,11 @@ class CommentCreateAPIView(CreateAPIView):
 class EmployeeCreateAPIView(ListAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+
+   
+class EmployeeListAPIView(ListAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
    
 

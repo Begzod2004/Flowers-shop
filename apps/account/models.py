@@ -37,7 +37,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Account'
         verbose_name_plural = 'Accounts'
 
-    email = models.EmailField(max_length=50, unique=True, verbose_name='Email', db_index=True, null=True, blank=True)
+    email = models.EmailField(max_length=50, unique=True, verbose_name='Email', db_index=True, null=True)
     full_name = models.CharField(max_length=50, verbose_name='Full name', null=True)
     phone = models.CharField(max_length=16, verbose_name='Phone Number', null=True)
     image = models.ImageField(upload_to='accounts/', verbose_name='Account image', null=True, blank=True)

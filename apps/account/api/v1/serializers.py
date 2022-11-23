@@ -1,12 +1,14 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from rest_framework import serializers
-from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 
 from apps.account.models import Account
+
+from django.utils.encoding import smart_bytes, smart_str, force_str, DjangoUnicodeDecodeError
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -95,21 +97,21 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=6, max_length=64, write_only=True)
     password2 = serializers.CharField(min_length=6, max_length=64, write_only=True)
     uidb64 = serializers.CharField(max_length=68, required=True)
-    tokens = serializers.CharField(max_length=555, required=True)
+    token = serializers.CharField(max_length=555, required=True)
 
     class Meta:
         model = Account
-        fields = ('password', 'password2', 'uidb64', 'tokens')
+        fields = ('password', 'password2', 'uidb64', 'token')
 
     def validate(self, attrs):
         password = attrs.get('password')
         password2 = attrs.get('password2')
         uidb64 = attrs.get('uidb64')
-        tokens = attrs.get('tokens')
+        token = attrs.get('token')
         _id = force_str(urlsafe_base64_decode(uidb64))
         user = Account.objects.filter(id=_id).first()
         current_password = user.password
-        if not PasswordResetTokenGenerator().check_token(user, tokens):
+        if not PasswordResetTokenGenerator().check_token(user, token):
             raise AuthenticationFailed({'success': False, 'message': 'The token is not valid'})
         if password != password2:
             raise serializers.ValidationError({
@@ -119,6 +121,36 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
         if check_password(password, current_password):
             raise serializers.ValidationError(
                 {'success': False, 'message': 'New password should not similar to current password'})
+
+        user.set_password(password)
+        user.save()
+        return attrs
+
+
+class ChangeNewPasswordSerializer(serializers.ModelSerializer):
+    old_password = serializers.CharField(min_length=6, max_length=64, write_only=True)
+    password = serializers.CharField(min_length=6, max_length=64, write_only=True)
+    password2 = serializers.CharField(min_length=6, max_length=64, write_only=True)
+
+    class Meta:
+        model = Account
+        fields = ('old_password', 'password', 'password2')
+
+    def validate(self, attrs):
+        old_password = attrs.get('old_password')
+        password = attrs.get('password')
+        password2 = attrs.get('password2')
+        request = self.context.get('request')
+        user = request.user
+        if not user.check_password(old_password):
+            print(55555555)
+            raise serializers.ValidationError(
+                {'success': False, 'message': 'Old password did not match, please try again new'})
+
+        if password != password2:
+            print(321)
+            raise serializers.ValidationError(
+                {'success': False, 'message': 'Password did not match, please try again new'})
 
         user.set_password(password)
         user.save()

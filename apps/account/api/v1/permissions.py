@@ -15,3 +15,12 @@ class IsOwnUserOrReadOnly(permissions.BasePermission):
 
         # Instance must have an attribute named `owner`.
         return obj.id == request.user.id
+
+
+class IsAuthenticated(permissions.IsAuthenticated):
+    """
+    Allows access only to authenticated users.
+    """
+
+    def has_permission(self, request, view):
+        return bool(request.user.is_active)

@@ -25,21 +25,25 @@ urlpatterns +=  [
     path('image_api_view/create', ImageCreateAPIView.as_view()),
     path('image_api_view/<int:pk>/', Image_api_view),
     
-    # Colors
-    path('color_api_view/', ColorListAPIView.as_view()),
-    path('color_api_view/create', ColorCreateAPIView.as_view()),
-    path('color_api_view/<int:pk>/', Color_api_view),
+    # Gallerys
+    path('Gallery_api_view/', GalleryListAPIView.as_view()),
+    path('Gallery_api_view/create', GalleryCreateAPIView.as_view()),
+    path('Gallery_api_view/<int:pk>/', Gallery_api_view),
     
-    # Flowers
-    path('flower_api_view/', FlowerListAPIView.as_view()),
-    path('flower_api_view/create', FlowerCreateAPIView.as_view()),
-    path('flower_api_view/<int:pk>/', Flower_api_view),
+    # Sectionss
+    path('Sections_api_view/', SectionsListAPIView.as_view()),
+    path('Sections_api_view/create', SectionsCreateAPIView.as_view()),
+    path('Sections_api_view/<int:pk>/', Sections_api_view),
     
     # ProductReview
     path('productReview_api_view/', ProductReviewListAPIView.as_view()),
     path('productReview_api_view/create', ProductReviewCreateAPIView.as_view()),
     path('productReview_api_view/<int:pk>/', ProductReview_api_view),
-    # path("createStar/", views.ProductViewSet.as_view({'get': 'list'})),
+    
+    # SectionsCategory
+    path('SectionsCategory_api_view/', SectionsCategoryListAPIView.as_view()),
+    path('SectionsCategory_api_view/create', SectionsCategoryCreateAPIView.as_view()),
+    path('SectionsCategory_api_view/<int:pk>/', SectionsCategory_api_view),
 ]
    
     

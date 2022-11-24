@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'apps.products',
     'apps.blog',
     'apps.contact',
-    # 'apps.rate',
+    'apps.news',
     'apps.order',
 
 

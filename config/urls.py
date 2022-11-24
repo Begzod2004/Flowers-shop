@@ -56,7 +56,7 @@ urlpatterns += [
 
     # local urls
     path('account/', include('apps.account.api.urls')),
-    # path('rate/', include('apps.rate.api.urls')),
+    path('news/', include('apps.news.api.urls')),
     path('products/', include('apps.products.api.urls')),
     path('blog/', include('apps.blog.api.urls')),
     path('contact/', include('apps.contact.api.urls')),

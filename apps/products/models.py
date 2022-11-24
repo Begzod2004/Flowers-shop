@@ -13,7 +13,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=254)
-    # rating_star = models.ForeignKey(ProductReview, on_delete=models.CASCADE)
+    color = models.CharField(max_length=20, null=True,blank=True )
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name="Category")
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
@@ -26,55 +26,53 @@ class Product(models.Model):
 
 class Image(models.Model):
     name = models.CharField(max_length=254, null=False, blank=True)
-    image = models.ImageField(null=False, blank=False)
+    image = models.ImageField(upload_to="CarsImages", null=False, blank=False)
     URL = models.URLField(max_length=1024, null=False, blank=True)
-    product_id = models.ForeignKey('Product', null=True,
+    product = models.ForeignKey('Product', null=True,
                                    blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return '{}, {}'.format(self.name, self.product_id)
 
 
-class Color(models.Model):
-    name = models.CharField(max_length=254)
-    image_id = models.ManyToManyField('Image')
-
-    def __str__(self):
-        return '{}'.format(self.name)
-
-
-class Flower(models.Model):
-    name = models.CharField(max_length=254)
-    product_id = models.ManyToManyField('Product')
-
-    def __str__(self):
-        return '{}'.format(self.name)
-
 
 
 class ProductReview(models.Model):
-    # RATING_CHOICES = (
-    #     (0, '0'),
-    #     (1, '1'),
-    #     (2, '2'),
-    #     (3, '3'),
-    #     (4, '4'),
-    #     (5, '5'),
-    # )
     user_id = models.ForeignKey(Account, null=True, blank=True, on_delete=models.SET_NULL)
-    # rating_score = models.IntegerField(choices=RATING_CHOICES, default=0 , verbose_name = "star")
     star = models.IntegerField(default=0 , verbose_name = "star")
     review_date = models.DateTimeField(auto_now_add=True, verbose_name='review_created_date')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    review_title = models.CharField(max_length=254)
     review_comment = models.TextField()
     
-    # @property
-    # def review_rate(self):
-    #     return self.rating_score/5*100
+   
 
     def __str__(self):
         return format(self.user_id)
+
+class Gallery(models.Model):
+    image = models.ImageField(null=False, blank=False)
+
+    def __str__(self):
+        return format(self.image)
+
+
+class SectionsCategory(models.Model):
+    title = models.CharField(max_length=30)
+    
+    def __str__(self):
+        return format(self.title)
+
+
+class Sections(models.Model):
+    title = models.CharField(max_length=30,null=False, blank=False)
+    image = models.ImageField(upload_to="CarsImages", null=False, blank=False)
+    description = models.TextField()
+    
+    def __str__(self):
+        return format(self.title)
+
+
+    
 
 
 

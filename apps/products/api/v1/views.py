@@ -10,17 +10,6 @@ from .serializers import *
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework import generics
 from django_filters import rest_framework as filters
-# Create your views here.
-
-    # def get_queryset(self):
-    #     products = Product.objects.filter(draft=False).annotate(
-    #         middle_star=models.Sum(models.F('ratings__rating_score')) / models.Count(models.F('ratings'))
-    #     )
-    #     return products
-
-    # def get_serializer_class(self):
-    #     if self.action == 'list':
-    #         return CreateRatingSerializer
 
 @api_view(['GET'])
 def Product_api_view(request, pk=0):
@@ -35,7 +24,6 @@ def Product_api_view(request, pk=0):
 class ProductListAPIView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductReviewaSerializer
-    # serializer_class = ProductSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
     max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
@@ -68,46 +56,7 @@ class ImageCreateAPIView(CreateAPIView):
     parser_classes = (FormParser, MultiPartParser)
 
 
-@api_view(['GET'])
-def Color_api_view(request, pk=0):
-    if request.method == 'GET':
-        if pk == 0:
-            return Response(data=ColorSerializer(instance=Color.objects.all(), many=True).data, status=200)
-        else:
-            the_Color = get_object_or_404(Color, pk=pk)
-            return Response(data=ColorSerializer(instance=the_Color).data, status=200)
-   
 
-class ColorListAPIView(ListAPIView):
-    queryset = Color.objects.all()
-    serializer_class = ColorSerializer
-
-
-class ColorCreateAPIView(CreateAPIView):
-    queryset = Color.objects.all()
-    serializer_class = ColorSerializer
-    parser_classes = (FormParser, MultiPartParser)
-
-
-@api_view(['GET'])
-def Flower_api_view(request, pk=0):
-    if request.method == 'GET':
-        if pk == 0:
-            return Response(data=FlowerSerializer(instance=Flower.objects.all(), many=True).data, status=200)
-        else:
-            the_Flower = get_object_or_404(Flower, pk=pk)
-            return Response(data=FlowerSerializer(instance=the_Flower).data, status=200)
-   
-
-class FlowerListAPIView(ListAPIView):
-    queryset = Flower.objects.all()
-    serializer_class = FlowerSerializer
-
-
-class FlowerCreateAPIView(CreateAPIView):
-    queryset = Flower.objects.all()
-    serializer_class = FlowerSerializer
-    parser_classes = (FormParser, MultiPartParser)
 
 
 @api_view(['GET'])
@@ -127,4 +76,68 @@ class ProductReviewListAPIView(ListAPIView):
 
 class ProductReviewCreateAPIView(CreateAPIView):
     queryset = ProductReview.objects.all()
+    parser_classes = (FormParser, MultiPartParser)    
+
+
+
+@api_view(['GET'])
+def Gallery_api_view(request, pk=0):
+    if request.method == 'GET':
+        if pk == 0:
+            return Response(data=GallerySerializer(instance=Gallery.objects.all(), many=True).data, status=200)
+        else:
+            the_Gallery = get_object_or_404(Gallery, pk=pk)
+            return Response(data=GallerySerializer(instance=the_Gallery).data, status=200)
+   
+
+class GalleryListAPIView(ListAPIView):
+    queryset = Gallery.objects.all()
+    serializer_class = GallerySerializer
+
+
+class GalleryCreateAPIView(CreateAPIView):
+    queryset = Gallery.objects.all()
+    parser_classes = (FormParser, MultiPartParser)    
+
+
+
+@api_view(['GET'])
+def Sections_api_view(request, pk=0):
+    if request.method == 'GET':
+        if pk == 0:
+            return Response(data=SectionsSerializer(instance=Sections.objects.all(), many=True).data, status=200)
+        else:
+            the_Sections = get_object_or_404(Sections, pk=pk)
+            return Response(data=SectionsSerializer(instance=the_Sections).data, status=200)
+   
+
+class SectionsListAPIView(ListAPIView):
+    queryset = Sections.objects.all()
+    serializer_class = SectionsSerializer
+
+
+class SectionsCreateAPIView(CreateAPIView):
+    queryset = Sections.objects.all()
+    parser_classes = (FormParser, MultiPartParser)    
+
+
+
+
+@api_view(['GET'])
+def SectionsCategory_api_view(request, pk=0):
+    if request.method == 'GET':
+        if pk == 0:
+            return Response(data=SectionsCategorySerializer(instance=SectionsCategory.objects.all(), many=True).data, status=200)
+        else:
+            the_SectionsCategory = get_object_or_404(SectionsCategory, pk=pk)
+            return Response(data=SectionsCategorySerializer(instance=the_SectionsCategory).data, status=200)
+   
+
+class SectionsCategoryListAPIView(ListAPIView):
+    queryset = SectionsCategory.objects.all()
+    serializer_class = SectionsCategorySerializer
+
+
+class SectionsCategoryCreateAPIView(CreateAPIView):
+    queryset = SectionsCategory.objects.all()
     parser_classes = (FormParser, MultiPartParser)    

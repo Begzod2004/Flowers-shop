@@ -26,7 +26,7 @@ class Product(models.Model):
 
 class Image(models.Model):
     name = models.CharField(max_length=254, null=False, blank=True)
-    image = models.ImageField(upload_to="CarsImages", null=False, blank=False)
+    image = models.ImageField(upload_to="fowerImg/", null=False, blank=False)
     URL = models.URLField(max_length=1024, null=False, blank=True)
     product = models.ForeignKey('Product', null=True,
                                    blank=True, on_delete=models.SET_NULL)
@@ -65,9 +65,10 @@ class SectionsCategory(models.Model):
 
 class Sections(models.Model):
     title = models.CharField(max_length=30,null=False, blank=False)
+    category = models.ForeignKey(SectionsCategory, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="CarsImages", null=False, blank=False)
     description = models.TextField()
-    
+
     def __str__(self):
         return format(self.title)
 

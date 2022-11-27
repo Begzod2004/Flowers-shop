@@ -60,7 +60,7 @@ urlpatterns += [
     path('products/', include('apps.products.api.urls')),
     path('blog/', include('apps.blog.api.urls')),
     path('contact/', include('apps.contact.api.urls')),
-    # path('order/', include('apps.order.api.urls')),
+    path('order/', include('apps.order.api.urls')),
 ]
 
 if settings.DEBUG:

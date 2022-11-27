@@ -141,3 +141,5 @@ class SectionsCategoryListAPIView(ListAPIView):
 class SectionsCategoryCreateAPIView(CreateAPIView):
     queryset = SectionsCategory.objects.all()
     parser_classes = (FormParser, MultiPartParser)    
+
+

@@ -4,20 +4,41 @@ from apps.account.models import Account
 class Category(models.Model):
     parent_category = models.ForeignKey('self', on_delete=models.CASCADE, verbose_name="Parent category", limit_choices_to={'is_active': True, 'parent_category__isnull': True}, related_name='children', null=True, blank=True)
     title = models.CharField(max_length=50, verbose_name="Category title")
+    slug = models.SlugField()
     is_active = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return self.title
+
+
+class Category_for(models.Model):
+    title = models.CharField(max_length=50, verbose_name="Category title")
+    is_active = models.BooleanField(default=True)
+    def __str__(self):
+        return self.title
+
+
+class Type_category(models.Model):
+    title = models.CharField(max_length=50, verbose_name="Category title")
+    is_active = models.BooleanField(default=True)
+    def __str__(self):
+        return self.title
+
 
 
 class Product(models.Model):
     title = models.CharField(max_length=254)
     color = models.CharField(max_length=20, null=True,blank=True )
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name="Category")
+    category_for = models.ForeignKey('Category_for', on_delete=models.CASCADE, verbose_name="Category_for")
+    type_category = models.ForeignKey('Type_category', on_delete=models.CASCADE, verbose_name="Type_category")
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
     product_image = models.ImageField(null=False, blank=True)
+    # boyi
+    # eni
+    # count
 
     def __str__(self):
         return self.title
@@ -40,9 +61,9 @@ class Image(models.Model):
 class ProductReview(models.Model):
     user_id = models.ForeignKey(Account, null=True, blank=True, on_delete=models.SET_NULL)
     star = models.IntegerField(default=0 , verbose_name = "star")
-    review_date = models.DateTimeField(auto_now_add=True, verbose_name='review_created_date')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     review_comment = models.TextField()
+    review_date = models.DateTimeField(auto_now_add=True, verbose_name='review_created_date')
     
    
 
@@ -71,6 +92,7 @@ class Sections(models.Model):
 
     def __str__(self):
         return format(self.title)
+
 
 
     

@@ -1,31 +1,17 @@
-# from django.contrib import admin
-# from .models import *
+from django.contrib import admin
+from .models import *
 
-# # Register your models here.
+# Register your models here.
 
 
-# @admin.register(Order)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ['user','car','title','date_created','from_here','to_here','phone_number','weight_cargo','volume_cargo','type_cargo','mode_cargo']
-#     list_filter = ['date_created']
-#     search_fields = ["title","user"]
+@admin.register(Cart)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id','created']
+    list_filter = ['created']
+    search_fields = ["id"]
 
-# @admin.register(Volume_cargo)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ['title']
-#     search_fields = ["title"]
-
-# @admin.register(Weight_cargo)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ['title']
-#     search_fields = ["title"]
-
-# @admin.register(Type_cargo)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ['title']
-#     search_fields = ["title"]
-
-# @admin.register(Mode_cargo)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ['title']
-#     search_fields = ["title"]
+@admin.register(Cartitems)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['cart','product','quantity',]
+    search_fields = ["cart", "product"]
+    list_filter = ['product']

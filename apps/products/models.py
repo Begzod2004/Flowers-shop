@@ -85,7 +85,3 @@ class Sections(models.Model):
 
 
     
-
-
-
-

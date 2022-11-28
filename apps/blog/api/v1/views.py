@@ -82,9 +82,11 @@ class CommentCreateAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated]
 
 
-class EmployeeCreateAPIView(ListAPIView):
+class EmployeeCreateAPIView(CreateAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    parser_classes = (FormParser, MultiPartParser)
+    permission_classes = [IsAuthenticated]
 
    
 class EmployeeListAPIView(ListAPIView):

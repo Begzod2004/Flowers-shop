@@ -4,14 +4,8 @@ from .models import *
 # Register your models here.
 
 
-@admin.register(Cart)
+@admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id','created']
+    list_display = ['user_id','created']
     list_filter = ['created']
     search_fields = ["id"]
-
-@admin.register(Cartitems)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ['cart','product','quantity',]
-    search_fields = ["cart", "product"]
-    list_filter = ['product']

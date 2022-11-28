@@ -23,12 +23,7 @@ class ProductFilterSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
-class ImageSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Image
-        fields = '__all__'
-        
 class GallerySerializer(serializers.ModelSerializer):
 
     class Meta:

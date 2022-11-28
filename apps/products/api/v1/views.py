@@ -36,30 +36,6 @@ class ProductCreateAPIView(CreateAPIView):
 
 
 @api_view(['GET'])
-def Image_api_view(request, pk=0):
-    if request.method == 'GET':
-        if pk == 0:
-            return Response(data=ImageSerializer(instance=Image.objects.all(), many=True).data, status=200)
-        else:
-            the_Image = get_object_or_404(Image, pk=pk)
-            return Response(data=ImageSerializer(instance=the_Image).data, status=200)
-   
-
-class ImageListAPIView(ListAPIView):
-    queryset = Image.objects.all()
-    serializer_class = ImageSerializer
-
-
-class ImageCreateAPIView(CreateAPIView):
-    queryset = Image.objects.all()
-    serializer_class = ImageSerializer
-    parser_classes = (FormParser, MultiPartParser)
-
-
-
-
-
-@api_view(['GET'])
 def ProductReview_api_view(request, pk=0):
     if request.method == 'GET':
         if pk == 0:
@@ -76,7 +52,9 @@ class ProductReviewListAPIView(ListAPIView):
 
 class ProductReviewCreateAPIView(CreateAPIView):
     queryset = ProductReview.objects.all()
-    parser_classes = (FormParser, MultiPartParser)    
+    parser_classes = (FormParser, MultiPartParser)   
+    serializer_class = ProductReviewSerializer
+ 
 
 
 

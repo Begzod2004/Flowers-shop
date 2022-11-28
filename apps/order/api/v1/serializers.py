@@ -1,9 +1,10 @@
 from rest_framework import serializers
-from apps.order.models import Cart
+from apps.order.models import Order
 
 
-class CartSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
+    
     id = serializers.UUIDField(read_only=True)
     class Meta:
-        model = Cart
-        fields = ["id"]
+        model = Order
+        fields = ['id','user_id','status','product','created']

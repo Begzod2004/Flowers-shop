@@ -19,11 +19,6 @@ urlpatterns +=  [
     path('product_api_view/', ProductListAPIView.as_view()),
     path('prproduct_api_viewoduct_api_view/create', ProductCreateAPIView.as_view()),
     path('product_api_view/<int:pk>/', Product_api_view),
-
-    # Images
-    path('image_api_view/', ImageListAPIView.as_view()),
-    path('image_api_view/create', ImageCreateAPIView.as_view()),
-    path('image_api_view/<int:pk>/', Image_api_view),
     
     # Gallerys
     path('Gallery_api_view/', GalleryListAPIView.as_view()),
@@ -37,8 +32,10 @@ urlpatterns +=  [
     
     # ProductReview
     path('productReview_api_view/', ProductReviewListAPIView.as_view()),
+    # path('productFilter/', ProductReviewaListAPIView.as_view()),
     path('productReview_api_view/create', ProductReviewCreateAPIView.as_view()),
     path('productReview_api_view/<int:pk>/', ProductReview_api_view),
+
     
     # SectionsCategory
     path('SectionsCategory_api_view/', SectionsCategoryListAPIView.as_view()),

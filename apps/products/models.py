@@ -12,15 +12,15 @@ class Category(models.Model):
         return self.title
 
 
-class Category_for(models.Model):
-    title = models.CharField(max_length=50, verbose_name="Category title")
+class For_who(models.Model):
+    title = models.CharField(max_length=50, verbose_name="Kim uchun")
     is_active = models.BooleanField(default=True)
     def __str__(self):
         return self.title
 
 
 class Type_category(models.Model):
-    title = models.CharField(max_length=50, verbose_name="Category title")
+    title = models.CharField(max_length=50, verbose_name="Turining nomi")
     is_active = models.BooleanField(default=True)
     def __str__(self):
         return self.title
@@ -28,34 +28,23 @@ class Type_category(models.Model):
 
 
 class Product(models.Model):
-    title = models.CharField(max_length=254)
-    color = models.CharField(max_length=20, null=True,blank=True )
+    title = models.CharField(max_length=254,verbose_name="Nomi")
+    color = models.CharField(max_length=20, null=True,blank=True,verbose_name="Rangi")
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name="Category")
-    category_for = models.ForeignKey('Category_for', on_delete=models.CASCADE, verbose_name="Category_for")
-    type_category = models.ForeignKey('Type_category', on_delete=models.CASCADE, verbose_name="Type_category")
+    for_who = models.ForeignKey('For_who', on_delete=models.CASCADE, verbose_name="Kim uchun")
+    type_category = models.ForeignKey('Type_category', on_delete=models.CASCADE, verbose_name="Turi categoriysi")
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
-    product_image = models.ImageField(null=False, blank=True)
-    # boyi
-    # eni
-    # count
+    product_image1 = models.ImageField(null=False, blank=True,verbose_name="Birinchi rasm")
+    product_image2= models.ImageField(null=False, blank=True,verbose_name="Ikkinchi rasm")
+    product_image3= models.ImageField(null=False, blank=True,verbose_name="Uchinchi rasm")
+    product_image4= models.ImageField(null=False, blank=True,verbose_name="Tortinchi rasm")
+    length = models.CharField(max_length=30, verbose_name="uzunligi") #uzunligi
+    width = models.CharField(max_length=40,verbose_name="eni") #eni
+    count = models.CharField(max_length=50,verbose_name="Nechtaligi") #nechtaligi
 
     def __str__(self):
         return self.title
-
-
-
-class Image(models.Model):
-    name = models.CharField(max_length=254, null=False, blank=True)
-    image = models.ImageField(upload_to="fowerImg/", null=False, blank=False)
-    URL = models.URLField(max_length=1024, null=False, blank=True)
-    product = models.ForeignKey('Product', null=True,
-                                   blank=True, on_delete=models.SET_NULL)
-
-    def __str__(self):
-        return '{}, {}'.format(self.name, self.product_id)
-
-
 
 
 class ProductReview(models.Model):

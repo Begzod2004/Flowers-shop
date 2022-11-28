@@ -13,7 +13,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 import json
-from apps.order.models import Cart
+from apps.order.models import Order
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
@@ -22,22 +22,22 @@ from rest_framework.parsers import FormParser, MultiPartParser
 # Create your views here.
 
 @api_view(['GET'])
-def Cart_api_view(request, pk=0):
+def Order_api_view(request, pk=0):
     if request.method == 'GET':
         if pk == 0:
-            return Response(data=CartSerializer(instance=Cart.objects.all(), many=True).data, status=200)
+            return Response(data=OrderSerializer(instance=Order.objects.all(), many=True).data, status=200)
         else:
-            the_Cart = get_object_or_404(Cart, pk=pk)
-            return Response(data=CartSerializer(instance=the_Cart).data, status=200)
+            the_Order = get_object_or_404(Order, pk=pk)
+            return Response(data=OrderSerializer(instance=the_Order).data, status=200)
 
-class CartListAPIView(ListAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+class OrderListAPIView(ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
     parser_classes = (FormParser, MultiPartParser)   
 
 
-class CartCreateAPIView(CreateAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+class OrderCreateAPIView(CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
     parser_classes = (FormParser, MultiPartParser)   
 

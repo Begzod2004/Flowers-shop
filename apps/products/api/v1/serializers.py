@@ -48,6 +48,7 @@ class ProductReviewSerializer(serializers.ModelSerializer):
         model = ProductReview
         fields = '__all__'
 
+   
 
 class ProductReviewaSerializer(serializers.ModelSerializer):
     review_avg = serializers.SerializerMethodField()

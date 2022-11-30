@@ -16,6 +16,7 @@ urlpatterns = router.urls
 urlpatterns +=  [
     # products
     path('ProductFilter/', ProductFilter),
+    path('PRADUCT/<int:pk>/', ProductRetrieveAPIView.as_view()),
     path('product_api_view/', ProductListAPIView.as_view()),
     path('prproduct_api_viewoduct_api_view/create', ProductCreateAPIView.as_view()),
     path('product_api_view/<int:pk>/', Product_api_view),

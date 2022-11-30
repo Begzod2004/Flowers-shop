@@ -20,7 +20,12 @@ def Product_api_view(request, pk=0):
             the_Product = get_object_or_404(Product, pk=pk)
             return Response(data=ProductSerializer(instance=the_Product).data, status=200)
    
-    
+
+class ProductRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductReviewaSerializer
+
+
 class ProductListAPIView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductReviewaSerializer
@@ -118,6 +123,7 @@ class SectionsCategoryListAPIView(ListAPIView):
 
 class SectionsCategoryCreateAPIView(CreateAPIView):
     queryset = SectionsCategory.objects.all()
+    serializer_class = SectionsCategorySerializer
     parser_classes = (FormParser, MultiPartParser)    
 
 

@@ -1,11 +1,6 @@
 from django.db import models
 from apps.products.models import Product
 from apps.account.models import Account
-import uuid
-import random
-
-def random_string():
-    return str(random.randint(10000, 999999))
     
 CONTACT_STATUS = (
     (0,"New"),
@@ -15,14 +10,30 @@ CONTACT_STATUS = (
 )
 
 class Order(models.Model):
-    product_num = models.CharField(max_length=1000,default = random_string)    
-    user_id = models.ForeignKey(Account,on_delete=models.CASCADE)
-    product = models.ManyToManyField(Product)
+    code = models.CharField(max_length=30,blank=True)    
+    user = models.ForeignKey(Account,on_delete=models.CASCADE)
     status = models.IntegerField(choices=CONTACT_STATUS, default=0)
     created = models.DateTimeField(auto_now_add=True)
 
+
+    def save(self, *args, **kwargs):
+        code = str(Order.objects.last().id + 1)
+        nols = "0" * (7 - len(code)) + code
+        self.code = f"{self.user.full_name[:1]}" + nols
+        return super().save(self, *args, **kwargs)
+
     def __str__(self):
-        return str(self.user_id)
+        return str(self.code)   
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='orderitem')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
+    count = models.PositiveIntegerField()
+
+    
+
+    
 
 
 

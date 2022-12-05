@@ -6,6 +6,13 @@ from .models import *
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user_id','created']
+    list_display = ['user','created']
     list_filter = ['created']
+    search_fields = ["id"]
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['order','product','count']
+    list_filter = ['order']
     search_fields = ["id"]

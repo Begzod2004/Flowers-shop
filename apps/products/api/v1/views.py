@@ -80,7 +80,8 @@ class GalleryListAPIView(ListAPIView):
 
 class GalleryCreateAPIView(CreateAPIView):
     queryset = Gallery.objects.all()
-    parser_classes = (FormParser, MultiPartParser)    
+    parser_classes = (FormParser, MultiPartParser)
+    serializer_class = GallerySerializer    
 
 
 

@@ -1,10 +1,17 @@
 from rest_framework import serializers
-from apps.order.models import Order
+from apps.order.models import Order,OrderItem
+from apps.products.api.v1.serializers import *
+
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    
-    id = serializers.UUIDField(read_only=True)
+
     class Meta:
         model = Order
-        fields = ['id','user_id','status','product','created']
+        fields = ['id','user',]
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = OrderItem
+        fields = ['order','product','count',]

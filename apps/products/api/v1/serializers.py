@@ -11,6 +11,14 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 
+
+class For_whoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = For_who
+        fields = '__all__'
+        
+
 class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -48,18 +56,51 @@ class ProductReviewSerializer(serializers.ModelSerializer):
         model = ProductReview
         fields = '__all__'
 
-   
+
+    
+class LengthSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Length
+        fields = "__all__"
+
+     
+    
+class CountCategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CountCategory
+        fields = "__all__"
+    
+class WidthSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Width
+        fields = "__all__"
 
 class ProductReviewaSerializer(serializers.ModelSerializer):
+    countCategory = CountCategorySerializer()
+    width = WidthSerializer()
+    length = LengthSerializer()
+    for_who = For_whoSerializer()
+    category = CategorySerializer()
     review_avg = serializers.SerializerMethodField()
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        reviews = instance.productreview.all()
+        # rewiews = ProductReview.objects.filter(product = instance) # hamma oziga boglangan review larni olish
+        review_ser = ProductReviewSerializer(reviews, many=True)
+        rep["product_reviews"] = review_ser.data
+        return rep
 
     class Meta:
         model = Product
         fields = "__all__"
 
-
     def get_review_avg(self, obj):
         return ProductReview.objects.filter(product=obj).aggregate(Avg('star'), Sum('star'), Count('star'))
 
-    
-    
+
+
+

@@ -87,6 +87,12 @@ class AccountUpdateSerializer(serializers.ModelSerializer):
         fields = ('id', 'full_name', 'image_url', 'email', 'phone',)
 
 
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('id', 'full_name',)
+
+
 class AccountOwnImageUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account

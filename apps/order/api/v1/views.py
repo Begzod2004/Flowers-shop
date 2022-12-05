@@ -41,3 +41,15 @@ class OrderCreateAPIView(CreateAPIView):
     serializer_class = OrderSerializer
     parser_classes = (FormParser, MultiPartParser)   
 
+
+
+class OrderItemListAPIView(ListAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+    parser_classes = (FormParser, MultiPartParser)   
+
+
+class OrderItemCreateAPIView(CreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+    parser_classes = (FormParser, MultiPartParser)   

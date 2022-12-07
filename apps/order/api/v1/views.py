@@ -2,7 +2,6 @@ import jwt
 from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.db.models import Q
-from django.utils.encoding import smart_bytes, smart_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from drf_yasg import openapi
 from rest_framework import generics, status, views

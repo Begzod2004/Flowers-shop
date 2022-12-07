@@ -18,7 +18,7 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         orde = Order.objects.last()
         if orde is not None:
-            code = str(orde.id + 1)
+            code = str(orde.pk + 1)
         else:
             code = str(1) 
         nols = "0" * (7 - len(code)) + code

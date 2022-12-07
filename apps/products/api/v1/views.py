@@ -102,6 +102,7 @@ class SectionsListAPIView(ListAPIView):
 
 class SectionsCreateAPIView(CreateAPIView):
     queryset = Sections.objects.all()
+    serializer_class = SectionsSerializer
     parser_classes = (FormParser, MultiPartParser)    
 
 

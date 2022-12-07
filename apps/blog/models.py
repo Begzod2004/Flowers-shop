@@ -30,7 +30,7 @@ class Comment(models.Model):
 
 
     def __str__(self):
-        return self.title
+        return self.blog
 
 class Employee(models.Model):
     title = models.CharField(max_length=20)

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-+cxlv*pa0(v#iv62ipc1hr1km7!1$rf!tfg65jh9i-kk2&6)o+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*",]
 
 
 # Application definition
@@ -220,8 +220,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),
 }
-
-
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,

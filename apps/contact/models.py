@@ -1,5 +1,4 @@
 from django.db import models
-from apps.order.models import Order
 from apps.account.models import Account
 
 

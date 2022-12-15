@@ -31,7 +31,7 @@ def Order_api_view(request, pk=0):
 
 class OrderListAPIView(ListAPIView):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+    serializer_class = OrderWatchSerializer
     parser_classes = (FormParser, MultiPartParser)   
 
 

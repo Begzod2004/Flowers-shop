@@ -8,7 +8,8 @@ from rest_framework.exceptions import AuthenticationFailed
 
 from apps.account.models import Account
 
-from django.utils.encoding import smart_bytes, smart_str, force_str, DjangoUnicodeDecodeError
+from django.utils.encoding import  smart_str, force_str, DjangoUnicodeDecodeError
+from django.utils.encoding import smart_bytes
 
 
 class RegisterSerializer(serializers.ModelSerializer):

@@ -23,7 +23,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = '__all__'
         
 class ProductFilterSerializer(serializers.ModelSerializer):
 
@@ -77,6 +77,12 @@ class WidthSerializer(serializers.ModelSerializer):
     class Meta:
         model = Width
         fields = "__all__"
+
+class ProductWatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ('id','title','price')
+
 
 class ProductReviewaSerializer(serializers.ModelSerializer):
     countCategory = CountCategorySerializer()

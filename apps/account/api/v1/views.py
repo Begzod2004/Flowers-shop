@@ -38,7 +38,7 @@ class AccountRegisterView(generics.GenericAPIView):
         token = RefreshToken.for_user(user)
 
         # activate account with email
-        current_site = 'localhost:8000/'
+        current_site = 'flowerss.pythonanywhere.com/'
         relative_link = 'account/v1/verify-email/'
         abs_url = f'http://{current_site}{relative_link}?token={str(token.access_token)}'
         email_body = f'Hi, {user.email} \n User link below to activate your email \n {abs_url}'

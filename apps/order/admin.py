@@ -13,6 +13,6 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ['order','product','count']
+    list_display = ['order','count']
     list_filter = ['order']
     search_fields = ["id"]

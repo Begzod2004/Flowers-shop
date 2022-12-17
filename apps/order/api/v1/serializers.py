@@ -12,7 +12,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderItemWatchSerializer(serializers.ModelSerializer):
-    product = ProductWatchSerializer()
+    product = ProductWatchSerializer(many=True)
 
     class Meta:
         model = OrderItem

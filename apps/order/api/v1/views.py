@@ -18,7 +18,9 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from .serializers import *
 from rest_framework.parsers import FormParser, MultiPartParser
+from apps.account.models import Account
 # Create your views here.
+
 
 @api_view(['GET'])
 def Order_api_view(request, pk=0):
@@ -27,7 +29,8 @@ def Order_api_view(request, pk=0):
             return Response(data=OrderSerializer(instance=Order.objects.all(), many=True).data, status=200)
         else:
             the_Order = get_object_or_404(Order, pk=pk)
-            return Response(data=OrderSerializer(instance=the_Order).data, status=200)
+            return Response(data=OrderDetailSerializer(instance=the_Order).data, status=200)
+
 
 class OrderListAPIView(ListAPIView):
     queryset = Order.objects.all()
@@ -38,7 +41,20 @@ class OrderListAPIView(ListAPIView):
 class OrderCreateAPIView(CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    parser_classes = (FormParser, MultiPartParser)   
+   
+    def create(self, request, *args, **kwargs):
+        orderitems = request.data.get("orderitems")
+        data = request.data
+        user = Account.objects.last().id
+        print(22222222,user)
+        data['user'] = user
+        serializer = self.get_serializer(data = request.data, context ={"orderitems":orderitems} )
+        if serializer.is_valid():
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(data = serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
@@ -51,4 +67,3 @@ class OrderItemListAPIView(ListAPIView):
 class OrderItemCreateAPIView(CreateAPIView):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
-    parser_classes = (FormParser, MultiPartParser)   

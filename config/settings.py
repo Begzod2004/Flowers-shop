@@ -186,8 +186,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 # EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_USER = 'begzodmirzaqulov71@gmail.com'
-EMAIL_HOST_PASSWORD = 'ajrkyssdbpxcgigs'
+EMAIL_HOST_USER = 'ozodbekyakhshiboevman@gmail.com'
+EMAIL_HOST_PASSWORD = 'imksaktvkxxebnii'
 
 
 SIMPLE_JWT = {

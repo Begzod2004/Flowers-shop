@@ -41,14 +41,15 @@ class OrderListAPIView(ListAPIView):
 class OrderCreateAPIView(CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes=[IsAuthenticated]
    
     def create(self, request, *args, **kwargs):
-        orderitems = request.data.get("orderitems")
+        orderitem = request.data.get("orderitem")
         data = request.data
-        user = Account.objects.last().id
-        print(22222222,user)
+        user = request.user
+        # user = Account.objects.first()
         data['user'] = user
-        serializer = self.get_serializer(data = request.data, context ={"orderitems":orderitems} )
+        serializer = self.get_serializer(data = data, context ={"user":user} )
         if serializer.is_valid():
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)

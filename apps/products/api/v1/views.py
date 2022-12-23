@@ -97,7 +97,7 @@ def Sections_api_view(request, pk=0):
 
 class SectionsListAPIView(ListAPIView):
     queryset = Sections.objects.all()
-    serializer_class = SectionsSerializer
+    serializer_class = SectionsSerializer   
 
 
 class SectionsCreateAPIView(CreateAPIView):
@@ -106,6 +106,18 @@ class SectionsCreateAPIView(CreateAPIView):
     parser_classes = (FormParser, MultiPartParser)    
 
 
+
+
+
+class CategoryListAPIView(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoryCreateAPIView(CreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    parser_classes = (FormParser, MultiPartParser)    
 
 
 @api_view(['GET'])
@@ -127,5 +139,4 @@ class SectionsCategoryCreateAPIView(CreateAPIView):
     queryset = SectionsCategory.objects.all()
     serializer_class = SectionsCategorySerializer
     parser_classes = (FormParser, MultiPartParser)    
-
 

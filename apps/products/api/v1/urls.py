@@ -15,7 +15,7 @@ urlpatterns = router.urls
 
 urlpatterns +=  [
     # products
-    path('ProductFilter/', ProductFilter),
+    # path('ProductFilter/', ProductFilter),
     path('PRADUCT/<int:pk>/', ProductRetrieveAPIView.as_view()),
     path('product_api_view/', ProductListAPIView.as_view()),
     path('prproduct_api_viewoduct_api_view/create', ProductCreateAPIView.as_view()),
@@ -42,6 +42,9 @@ urlpatterns +=  [
     path('SectionsCategory_api_view/', SectionsCategoryListAPIView.as_view()),
     path('SectionsCategory_api_view/create', SectionsCategoryCreateAPIView.as_view()),
     path('SectionsCategory_api_view/<int:pk>/', SectionsCategory_api_view),
+
+    path('Category_api_view/', CategoryListAPIView.as_view()),
+    path('Category_api_view/create', CategoryCreateAPIView.as_view()),
 ]
    
     

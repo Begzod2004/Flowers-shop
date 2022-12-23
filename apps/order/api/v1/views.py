@@ -29,7 +29,7 @@ def Order_api_view(request, pk=0):
             return Response(data=OrderSerializer(instance=Order.objects.all(), many=True).data, status=200)
         else:
             the_Order = get_object_or_404(Order, pk=pk)
-            return Response(data=OrderDetailSerializer(instance=the_Order).data, status=200)
+            return Response(data=OrderDetailSerializer(instance=the_Order).data, status=status.HTTP_200_OK)
 
 
 class OrderListAPIView(ListAPIView):

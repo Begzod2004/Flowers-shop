@@ -10,7 +10,7 @@ CONTACT_STATUS = (
 )
 
 class Order(models.Model):
-    code = models.CharField(max_length=30,blank=True)    
+    code = models.CharField(max_length=30,blank=True, unique=True)    
     user = models.ForeignKey(Account,on_delete=models.CASCADE)
     status = models.IntegerField(choices=CONTACT_STATUS, default=0)
     created = models.DateTimeField(auto_now_add=True)
@@ -25,7 +25,6 @@ class Order(models.Model):
         self.code = f"{self.user.full_name[:1]}" + nols
         return super(Order, self).save(*args, **kwargs)
 
-
     def __str__(self):
         return str(self.code)       
 
@@ -33,12 +32,3 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='orderitem')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
     count = models.PositiveIntegerField()
-
-    
-
-    
-
-
-
-
-   
